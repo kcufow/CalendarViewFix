@@ -493,7 +493,108 @@ final class CalendarViewDelegate {
         array.recycle();
         init();
     }
+    CalendarViewDelegate(Context context, @Nullable AttributeSet attrs,boolean fix) {
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CalendarView);
 
+        LunarCalendar.init(context);
+
+        mCalendarPadding = (int) array.getDimension(R.styleable.CalendarViewFix_calendar_padding, 0);
+        mSchemeTextColor = array.getColor(R.styleable.CalendarViewFix_scheme_text_color, 0xFFFFFFFF);
+        mSchemeLunarTextColor = array.getColor(R.styleable.CalendarViewFix_scheme_lunar_text_color, 0xFFe1e1e1);
+        mSchemeThemeColor = array.getColor(R.styleable.CalendarViewFix_scheme_theme_color, 0x50CFCFCF);
+        mMonthViewClassPath = array.getString(R.styleable.CalendarViewFix_month_view);
+        mYearViewClassPath = array.getString(R.styleable.CalendarViewFix_year_view);
+        mWeekViewClassPath = array.getString(R.styleable.CalendarViewFix_week_view);
+        mWeekBarClassPath = array.getString(R.styleable.CalendarViewFix_week_bar_view);
+        mWeekTextSize = array.getDimensionPixelSize(R.styleable.CalendarViewFix_week_text_size,
+                CalendarUtil.dipToPx(context, 12));
+        mWeekBarHeight = (int) array.getDimension(R.styleable.CalendarViewFix_week_bar_height,
+                CalendarUtil.dipToPx(context, 40));
+        mWeekLineMargin = (int) array.getDimension(R.styleable.CalendarViewFix_week_line_margin,
+                CalendarUtil.dipToPx(context, 0));
+
+        mSchemeText = array.getString(R.styleable.CalendarViewFix_scheme_text);
+        if (TextUtils.isEmpty(mSchemeText)) {
+            mSchemeText = "记";
+        }
+
+        mMonthViewScrollable = array.getBoolean(R.styleable.CalendarViewFix_month_view_scrollable, true);
+        mWeekViewScrollable = array.getBoolean(R.styleable.CalendarViewFix_week_view_scrollable, true);
+        mYearViewScrollable = array.getBoolean(R.styleable.CalendarViewFix_year_view_scrollable, true);
+
+        mDefaultCalendarSelectDay = array.getInt(R.styleable.CalendarViewFix_month_view_auto_select_day,
+                FIRST_DAY_OF_MONTH);
+
+        mMonthViewShowMode = array.getInt(R.styleable.CalendarViewFix_month_view_show_mode, MODE_ALL_MONTH);
+        mWeekStart = array.getInt(R.styleable.CalendarViewFix_week_start_with, WEEK_START_WITH_SUN);
+        mSelectMode = array.getInt(R.styleable.CalendarViewFix_select_mode, SELECT_MODE_DEFAULT);
+        mMaxMultiSelectSize = array.getInt(R.styleable.CalendarViewFix_max_multi_select_size, Integer.MAX_VALUE);
+        mMinSelectRange = array.getInt(R.styleable.CalendarViewFix_min_select_range, -1);
+        mMaxSelectRange = array.getInt(R.styleable.CalendarViewFix_max_select_range, -1);
+        setSelectRange(mMinSelectRange, mMaxSelectRange);
+
+        mWeekBackground = array.getColor(R.styleable.CalendarViewFix_week_background, Color.WHITE);
+        mWeekLineBackground = array.getColor(R.styleable.CalendarViewFix_week_line_background, Color.TRANSPARENT);
+        mYearViewBackground = array.getColor(R.styleable.CalendarViewFix_year_view_background, Color.WHITE);
+        mWeekTextColor = array.getColor(R.styleable.CalendarViewFix_week_text_color, 0xFF333333);
+
+        mCurDayTextColor = array.getColor(R.styleable.CalendarViewFix_current_day_text_color, Color.RED);
+        mCurDayLunarTextColor = array.getColor(R.styleable.CalendarViewFix_current_day_lunar_text_color, Color.RED);
+
+        mSelectedThemeColor = array.getColor(R.styleable.CalendarViewFix_selected_theme_color, 0x50CFCFCF);
+        mSelectedTextColor = array.getColor(R.styleable.CalendarViewFix_selected_text_color, 0xFF111111);
+
+        mSelectedLunarTextColor = array.getColor(R.styleable.CalendarViewFix_selected_lunar_text_color, 0xFF111111);
+        mCurrentMonthTextColor = array.getColor(R.styleable.CalendarViewFix_current_month_text_color, 0xFF111111);
+        mOtherMonthTextColor = array.getColor(R.styleable.CalendarViewFix_other_month_text_color, 0xFFe1e1e1);
+
+        mCurMonthLunarTextColor = array.getColor(R.styleable.CalendarViewFix_current_month_lunar_text_color, 0xffe1e1e1);
+        mOtherMonthLunarTextColor = array.getColor(R.styleable.CalendarViewFix_other_month_lunar_text_color, 0xffe1e1e1);
+        mMinYear = array.getInt(R.styleable.CalendarViewFix_min_year, 1971);
+        mMaxYear = array.getInt(R.styleable.CalendarViewFix_max_year, 2055);
+        mMinYearMonth = array.getInt(R.styleable.CalendarViewFix_min_year_month, 1);
+        mMaxYearMonth = array.getInt(R.styleable.CalendarViewFix_max_year_month, 12);
+        mMinYearDay = array.getInt(R.styleable.CalendarViewFix_min_year_day, 1);
+        mMaxYearDay = array.getInt(R.styleable.CalendarViewFix_max_year_day, -1);
+
+        mDayTextSize = array.getDimensionPixelSize(R.styleable.CalendarViewFix_day_text_size,
+                CalendarUtil.dipToPx(context, 16));
+        mLunarTextSize = array.getDimensionPixelSize(R.styleable.CalendarViewFix_lunar_text_size,
+                CalendarUtil.dipToPx(context, 10));
+        mCalendarItemHeight = (int) array.getDimension(R.styleable.CalendarViewFix_calendar_height,
+                CalendarUtil.dipToPx(context, 56));
+        isFullScreenCalendar = array.getBoolean(R.styleable.CalendarViewFix_calendar_match_parent, false);
+
+        //年视图相关
+        mYearViewMonthTextSize = array.getDimensionPixelSize(R.styleable.CalendarViewFix_year_view_month_text_size,
+                CalendarUtil.dipToPx(context, 18));
+        mYearViewDayTextSize = array.getDimensionPixelSize(R.styleable.CalendarViewFix_year_view_day_text_size,
+                CalendarUtil.dipToPx(context, 7));
+        mYearViewMonthTextColor = array.getColor(R.styleable.CalendarViewFix_year_view_month_text_color, 0xFF111111);
+        mYearViewDayTextColor = array.getColor(R.styleable.CalendarViewFix_year_view_day_text_color, 0xFF111111);
+        mYearViewSchemeTextColor = array.getColor(R.styleable.CalendarViewFix_year_view_scheme_color, mSchemeThemeColor);
+        mYearViewWeekTextColor = array.getColor(R.styleable.CalendarViewFix_year_view_week_text_color, 0xFF333333);
+        mYearViewCurDayTextColor = array.getColor(R.styleable.CalendarViewFix_year_view_current_day_text_color, mCurDayTextColor);
+        mYearViewSelectTextColor = array.getColor(R.styleable.CalendarViewFix_year_view_select_text_color, 0xFF333333);
+        mYearViewWeekTextSize = array.getDimensionPixelSize(R.styleable.CalendarViewFix_year_view_week_text_size,
+                CalendarUtil.dipToPx(context, 8));
+        mYearViewMonthHeight = array.getDimensionPixelSize(R.styleable.CalendarViewFix_year_view_month_height,
+                CalendarUtil.dipToPx(context, 32));
+        mYearViewWeekHeight = array.getDimensionPixelSize(R.styleable.CalendarViewFix_year_view_week_height,
+                CalendarUtil.dipToPx(context, 0));
+
+        mYearViewPadding = (int) array.getDimension(R.styleable.CalendarViewFix_year_view_padding,
+                CalendarUtil.dipToPx(context, 6));
+        mYearViewMonthMarginTop = (int) array.getDimension(R.styleable.CalendarViewFix_year_view_month_margin_top,
+                CalendarUtil.dipToPx(context, 4));
+        mYearViewMonthMarginBottom = (int) array.getDimension(R.styleable.CalendarViewFix_year_view_month_margin_bottom,
+                CalendarUtil.dipToPx(context, 4));
+
+        if (mMinYear <= MIN_YEAR) mMinYear = MIN_YEAR;
+        if (mMaxYear >= MAX_YEAR) mMaxYear = MAX_YEAR;
+        array.recycle();
+        init();
+    }
     private void init() {
         mCurrentDate = new Calendar();
         Date d = new Date();

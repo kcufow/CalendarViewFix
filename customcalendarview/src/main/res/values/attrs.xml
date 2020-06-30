@@ -130,14 +130,9 @@
         </attr>
         <attr name="calendar_content_view_id" format="integer" />
     </declare-styleable>
-    <declare-styleable name="CalendarCoordinateLayout">
-        <attr name="default_status"/>
-        <!-- 手势模式 -->
-        <attr name="gesture_mode"/>
-        <attr name="calendar_show_mode"/>
-        <attr name="calendar_content_view_id" />
-    </declare-styleable>
-    <declare-styleable name="CalendarView2">
+
+
+    <declare-styleable name="CalendarViewFix">
 
         <attr name="calendar_padding"  /><!--日历内部左右padding-->
 
