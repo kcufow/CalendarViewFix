@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sml"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:srlEnableAutoLoadMore="false"
+    app:srlEnableOverScrollDrag="false">
+
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/work_calendar_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.haibin.calendarview.CalendarView2
+            android:id="@+id/work_calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            app:calendar_padding="0dp"
+            app:current_month_text_color="#4d4d4d"
+            app:max_year="2028"
+            app:min_year="2013"
+            app:month_view="com.kcufow.calendardemo.custom.CustomMonthView"
+            app:month_view_show_mode="mode_fix"
+            app:other_month_text_color="#ababab"
+            app:select_mode="single_mode"
+            app:selected_text_color="#fff"
+            app:selected_theme_color="#1d87ed"
+            app:week_background="#fff"
+            app:week_start_with="mon"
+            app:week_text_size="13sp"
+            app:week_text_color="#ababab"
+            app:week_view="com.kcufow.calendardemo.custom.CustomWeekView"
+            app:week_view_scrollable="true"
+            />
+
+        <LinearLayout
+            android:id="@+id/child_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:padding="5dp"
+                    android:id="@+id/expand_toggle_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="6dp"
+                    android:src="@drawable/arrow_dow"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/filter_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
