@@ -66,7 +66,7 @@ public class CalendarViewFix extends FrameLayout {
      */
     private WeekBar mWeekBar;
 
-    public boolean isExpand =false;
+    public boolean isExpand = false;
 
 
     public CalendarViewFix(@NonNull Context context) {
@@ -75,7 +75,7 @@ public class CalendarViewFix extends FrameLayout {
 
     public CalendarViewFix(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mDelegate = new CalendarViewDelegate(context, attrs,true);
+        mDelegate = new CalendarViewDelegate(context, attrs, true);
         init(context);
     }
 
@@ -96,7 +96,7 @@ public class CalendarViewFix extends FrameLayout {
             e.printStackTrace();
         }
 
-      addView(mWeekBar, 2);
+        addView(mWeekBar, 2);
         mWeekBar.setup(mDelegate);
         mWeekBar.onWeekStartChange(mDelegate.getWeekStart());
 
@@ -187,22 +187,23 @@ public class CalendarViewFix extends FrameLayout {
         mMonthPager.setup(mDelegate);
         mMonthPager.setCurrentItem(mDelegate.mCurrentMonthViewItem);
         mWeekPager.updateSelected(mDelegate.createCurrentDate(), false);
-        if (isExpand){
+        if (isExpand) {
             hideWeek();
-        }else{
+        } else {
             showWeek();
         }
 
     }
 
-    public void  updateExpand(Boolean expand){
+    public void updateExpand(Boolean expand) {
         this.isExpand = expand;
-        if (isExpand){
+        if (isExpand) {
             hideWeek();
-        }else{
+        } else {
             showWeek();
         }
     }
+
     /**
      * 显示周视图
      */
@@ -210,9 +211,9 @@ public class CalendarViewFix extends FrameLayout {
         onShowWeekView();
         if (mWeekPager.getAdapter() != null) {
             mWeekPager.getAdapter().notifyDataSetChanged();
-            mWeekPager.setVisibility( View.VISIBLE);
+            mWeekPager.setVisibility(View.VISIBLE);
         }
-        mMonthPager.setVisibility( View.GONE);
+        mMonthPager.setVisibility(View.GONE);
     }
 
     /**
@@ -228,7 +229,7 @@ public class CalendarViewFix extends FrameLayout {
      * 周视图显示事件
      */
     private void onShowMonthView() {
-        if (mDelegate.mViewChangeListener != null ) {
+        if (mDelegate.mViewChangeListener != null) {
             mDelegate.mViewChangeListener.onViewChange(true);
         }
     }
@@ -238,10 +239,11 @@ public class CalendarViewFix extends FrameLayout {
      * 周视图显示事件
      */
     private void onShowWeekView() {
-        if (mDelegate.mViewChangeListener != null ) {
+        if (mDelegate.mViewChangeListener != null) {
             mDelegate.mViewChangeListener.onViewChange(false);
         }
     }
+
     /**
      * 设置日期范围
      *
@@ -297,12 +299,6 @@ public class CalendarViewFix extends FrameLayout {
     public int getCurYear() {
         return mDelegate.getCurrentDay().getYear();
     }
-
-
-
-
-
-
 
 
     /**
@@ -374,7 +370,7 @@ public class CalendarViewFix extends FrameLayout {
      * @param smoothScroll smoothScroll
      */
     public void scrollToPre(boolean smoothScroll) {
-         if (mWeekPager.getVisibility() == VISIBLE) {
+        if (mWeekPager.getVisibility() == VISIBLE) {
             mWeekPager.setCurrentItem(mWeekPager.getCurrentItem() - 1, smoothScroll);
         } else {
             mMonthPager.setCurrentItem(mMonthPager.getCurrentItem() - 1, smoothScroll);
@@ -451,8 +447,6 @@ public class CalendarViewFix extends FrameLayout {
             mMonthPager.scrollToCalendar(year, month, day, smoothScroll, invokeListener);
         }
     }
-
-
 
 
     /**
@@ -1038,8 +1032,8 @@ public class CalendarViewFix extends FrameLayout {
     }
 
 
-
     private boolean hasInit = false;
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = MeasureSpec.getSize(heightMeasureSpec);
@@ -1048,9 +1042,9 @@ public class CalendarViewFix extends FrameLayout {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
         }
-        if (!hasInit){
+        if (!hasInit) {
             setCalendarItemHeight((height - mDelegate.getWeekBarHeight()) / 6);
-            hasInit =true;
+            hasInit = true;
         }
 
 
@@ -1221,7 +1215,6 @@ public class CalendarViewFix extends FrameLayout {
         mMonthPager.updateStyle();
         mWeekPager.updateStyle();
     }
-
 
 
     /**

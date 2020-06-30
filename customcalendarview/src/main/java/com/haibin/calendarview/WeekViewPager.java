@@ -167,6 +167,7 @@ public final class WeekViewPager extends ViewPager {
         }
 
         int i = CalendarUtil.getWeekFromDayInMonth(calendar, mDelegate.getWeekStart());
+        if (mParentLayout!=null)
         mParentLayout.updateSelectWeek(i);
     }
 
@@ -197,6 +198,7 @@ public final class WeekViewPager extends ViewPager {
             mDelegate.mCalendarSelectListener.onCalendarSelect(calendar, false);
         }
         int i = CalendarUtil.getWeekFromDayInMonth(calendar, mDelegate.getWeekStart());
+        if (mParentLayout!=null)
         mParentLayout.updateSelectWeek(i);
     }
 
@@ -230,6 +232,7 @@ public final class WeekViewPager extends ViewPager {
             mDelegate.mInnerListener.onWeekDateSelected(mDelegate.getCurrentDay(), false);
         }
         int i = CalendarUtil.getWeekFromDayInMonth(mDelegate.getCurrentDay(), mDelegate.getWeekStart());
+        if (mParentLayout!=null)
         mParentLayout.updateSelectWeek(i);
     }
 
